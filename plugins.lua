@@ -24,6 +24,19 @@ local plugins = {
     end
   },
   {
+    "leoluz/nvim-dap-go",
+    ft = "go",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "rcarriga/nvim-dap-ui",
+    },
+    config = function(_, opts)
+      -- local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+      require("dap-go").setup(opts)
+      require("core.utils").load_mappings("dap_go")
+    end,
+  },
+  {
     "mfussenegger/nvim-dap-python",
     ft = "python",
     dependencies = {
@@ -37,8 +50,8 @@ local plugins = {
     end,
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    ft = {"python"},
+    "nvimtools/none-ls.nvim",
+    ft = {"python,go"},
     opts = function()
       return require "custom.configs.null-ls"
     end,
@@ -52,6 +65,29 @@ local plugins = {
         "mypy",
         "ruff",
         "pyright",
+        "tailwindcss-language-server",
+        "svelte-language-server",
+        "typescript-language-server",
+        "eslint-lsp",
+        "html-lsp",
+        "gopls",
+        "golines",
+        "gofumpt",
+        "goimports-reviser",
+        "delve",
+      },
+    },
+  },
+  -- this opts will extend the default opts 
+  {
+    "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      { "windwp/nvim-ts-autotag" },
+    },
+    opts = {
+      ensure_installed = {"html", "css", "scss","python","typescript","svelte","go","java","javascript"},
+      autotag = {
+        enable = true,
       },
     },
   },
@@ -61,6 +97,31 @@ local plugins = {
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
     end,
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  },
+  {
+    'akinsho/flutter-tools.nvim',
+    lazy = false,
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'stevearc/dressing.nvim', -- optional for vim.ui.select
+    },
+    config = true,
+  },
+  {
+    "olexsmir/gopher.nvim",
+    config = function(_,opts)
+      require("gopher").setup(opts)
+      require("core.utils").load_mappings("gopher")
+    end,
+    build = function ()
+      vim.cmd [[silent! GoInstallDeps]]
+    end
   },
 }
 return plugins
