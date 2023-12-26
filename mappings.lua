@@ -3,6 +3,14 @@ local M = {}
 M.abc ={
   n = {
     -- ["<leader>rdev"] = {":T npm run dev<CR>"}
+    ["gr"] = {
+      function()
+        require('telescope.builtin').lsp_references()
+      end,
+      "LSP telescope references",
+    },
+    ["<C-d>"] = { "<C-d>zz", "Page Down" },
+    ["<C-u>"] = { "<C-u>zz", "Page Down" },
   }
 }
 
