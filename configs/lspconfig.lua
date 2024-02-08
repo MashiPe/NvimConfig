@@ -40,6 +40,13 @@ lspconfig.eslint.setup{
   capabilities = capabilities,
 }
 
+-- r-languageserver lsp config
+lspconfig.r_language_server.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+  -- filetypes = {"r","rmd","R"},
+}
+
 lspconfig.gopls.setup{
   on_attach = on_attach,
   capabilities = capabilities,
@@ -55,4 +62,14 @@ lspconfig.gopls.setup{
       },
     },
   },
+}
+
+-- Docker and Dockercompose configurations
+lspconfig.docker_compose_language_service.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+lspconfig.dockerls.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
 }

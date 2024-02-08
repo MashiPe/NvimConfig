@@ -9,8 +9,8 @@ M.abc ={
       end,
       "LSP telescope references",
     },
-    ["<C-d>"] = { "<C-d>zz", "Page Down" },
-    ["<C-u>"] = { "<C-u>zz", "Page Down" },
+    ["<C-d>"] = { "<C-d>zz", "Custom Page Down" },
+    ["<C-u>"] = { "<C-u>zz", "Custom Page Up" },
   }
 }
 

@@ -14,3 +14,4 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
   end
 })
 
+vim.lsp.set_log_level("debug")
