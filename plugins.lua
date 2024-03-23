@@ -1,7 +1,19 @@
 local plugins = {
   {
+    "jay-babu/mason-nvim-dap.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap"
+    },
+    opts = {
+      handlers = {},
+    }
+  },
+  {
     "rcarriga/nvim-dap-ui",
     dependencies = "mfussenegger/nvim-dap",
+    event = "VeryLazy",
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
@@ -19,7 +31,7 @@ local plugins = {
   },
   {
     "mfussenegger/nvim-dap",
-    config = function(_, opts)
+    config = function(_, _)
       require("core.utils").load_mappings("dap")
     end
   },
@@ -46,6 +58,9 @@ local plugins = {
     config = function(_, opts)
       local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
       require("dap-python").setup(path)
+      require("dap-python").resolve_python = function ()
+        return '/usr/bin/python'
+      end
       require("core.utils").load_mappings("dap_python")
     end,
   },
@@ -78,6 +93,9 @@ local plugins = {
         -- "r-languageserver",
         "dockerfile-language-server",
         "docker-compose-language-service",
+        "clangd",
+        "clang-format",
+        "codelldb",
       },
     },
   },
@@ -125,6 +143,16 @@ local plugins = {
     build = function ()
       vim.cmd [[silent! GoInstallDeps]]
     end
+  },
+  -- install with yarn or npm
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && npm install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
   },
 }
 return plugins

@@ -29,15 +29,18 @@ M.dap = {
   plugin = true,
   n = {
     ["<leader>tbp"] = {"<cmd> DapToggleBreakpoint <CR>"},
-
+    ["<leader>dr"] = {"<cmd> DapContinue <CR>"},
     ['<F10>']= {function ()
       require('dap').step_over()
+      vim.cmd('execute \"normal zz\"')
     end},
     ['<F11>']= {function ()
       require('dap').step_into()
+      vim.cmd('execute \"normal zz\"')
     end},
     ['<F12>']= {function ()
       require('dap').step_out()
+      vim.cmd('execute \"normal zz\"')
     end},
   }
 }
