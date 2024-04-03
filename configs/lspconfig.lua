@@ -36,7 +36,13 @@ lspconfig.tailwindcss.setup {
 
 -- eslint lsp config
 lspconfig.eslint.setup{
-  on_attach = on_attach,
+  -- on_attach = on_attach,
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
   capabilities = capabilities,
 }
 
@@ -80,4 +86,17 @@ lspconfig.clangd.setup{
     on_attach(client,bufnr)
   end,
   capabilities = capabilities,
+}
+
+-- Ruff-lsp config
+--
+lspconfig.ruff_lsp.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  init_options = {
+    settings = {
+      -- Any extra CLI arguments for `ruff` go here.
+      args = {},
+    }
+  }
 }

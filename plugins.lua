@@ -12,7 +12,10 @@ local plugins = {
   },
   {
     "rcarriga/nvim-dap-ui",
-    dependencies = "mfussenegger/nvim-dap",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio"
+    },
     event = "VeryLazy",
     config = function()
       local dap = require("dap")
@@ -59,7 +62,22 @@ local plugins = {
       local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
       require("dap-python").setup(path)
       require("dap-python").resolve_python = function ()
-        return '/usr/bin/python'
+        local current_dir = vim.fn.getcwd()
+        local parent_dir = vim.fn.fnamemodify(current_dir,":h")
+        local current_venv = current_dir .. "/venv"
+        local parent_venv = parent_dir .. "/venv"
+        
+        local python_dir = '/usr'
+
+        if vim.fn.isdirectory(current_venv) ~= 0 then
+          python_dir = current_venv
+        end
+
+        if vim.fn.isdirectory(parent_venv) ~= 0 then
+          python_dir =  parent_venv 
+        end
+
+        return python_dir .. "/bin/python"
       end
       require("core.utils").load_mappings("dap_python")
     end,
@@ -96,6 +114,8 @@ local plugins = {
         "clangd",
         "clang-format",
         "codelldb",
+        "lua-language-server",
+        "ruff-lsp"
       },
     },
   },
