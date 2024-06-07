@@ -66,7 +66,6 @@ local plugins = {
         local parent_dir = vim.fn.fnamemodify(current_dir,":h")
         local current_venv = current_dir .. "/venv"
         local parent_venv = parent_dir .. "/venv"
-        
         local python_dir = '/usr'
 
         if vim.fn.isdirectory(current_venv) ~= 0 then
@@ -95,8 +94,8 @@ local plugins = {
       ensure_installed = {
         "black",
         "debugpy",
-        "mypy",
-        "ruff",
+        -- "mypy",
+        -- "ruff",
         "pyright",
         "tailwindcss-language-server",
         "svelte-language-server",
@@ -173,6 +172,33 @@ local plugins = {
       vim.g.mkdp_filetypes = { "markdown" }
     end,
     ft = { "markdown" },
+  },
+    {
+    "nvim-java/nvim-java",
+    lazy = false,
+    dependencies = {
+      "nvim-java/lua-async-await",
+      'nvim-java/nvim-java-refactor',
+      "nvim-java/nvim-java-core",
+      "nvim-java/nvim-java-test",
+      "nvim-java/nvim-java-dap",
+      "MunifTanjim/nui.nvim",
+      "neovim/nvim-lspconfig",
+      "mfussenegger/nvim-dap",
+      {
+        "williamboman/mason.nvim",
+        opts = {
+          registries = {
+            "github:nvim-java/mason-registry",
+            "github:mason-org/mason-registry",
+          },
+        },
+      },
+    },
+    config = function()
+      require "plugins.configs.lspconfig"
+      require "custom.configs.lspconfig"
+    end,
   },
 }
 return plugins

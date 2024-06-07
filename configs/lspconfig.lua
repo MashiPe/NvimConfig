@@ -42,6 +42,7 @@ lspconfig.eslint.setup{
       buffer = bufnr,
       command = "EslintFixAll",
     })
+  client.server_capabilities.document_formatting=true
   end,
   capabilities = capabilities,
 }
@@ -99,4 +100,11 @@ lspconfig.ruff_lsp.setup {
       args = {},
     }
   }
+}
+
+require("java").setup {}
+lspconfig.jdtls.setup {
+    on_attach = require("plugins.configs.lspconfig").on_attach,
+    capabilities = require("plugins.configs.lspconfig").capabilities,
+    filetypes = { "java" },
 }
