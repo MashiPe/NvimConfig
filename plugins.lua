@@ -1,4 +1,13 @@
 local plugins = {
+  { "mistricky/codesnap.nvim",
+    lazy = false, 
+    build = "make",
+    opts = {
+          save_path = "~/Pictures/CodeSnap/",
+            watermark = "",
+  bg_color = "#10111a"
+        }
+    },
   {
     "jay-babu/mason-nvim-dap.nvim",
     event = "VeryLazy",
@@ -166,6 +175,7 @@ local plugins = {
   -- install with yarn or npm
   {
     "iamcco/markdown-preview.nvim",
+    lazy = false,
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     build = "cd app && npm install",
     init = function()
